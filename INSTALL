@@ -1,0 +1,52 @@
+
+########################################################################
+#
+# Copyright (c) 2011, Weta Digital Limited
+#
+# All rights reserved.
+#
+# see accompanying LICENSE file for more information
+#
+#######################################################################
+
+lensDistortion_3de is a thin wrapper around the 3DEqualizer Lens Distortion Plugin Kit
+It scans a given folder, set by LENSMODEL_PATH for .so files, and creates a Nuke Op for
+each, named the same as the .so. Thus, if there is a plugin called 'tde4_ldp_classic_3de_mixed'
+a node will be available in Nuke called 'tde4_ldp_classic_3de_mixed'
+
+Parameters required by the lens model are automatically turned into Nuke knobs.
+This plugin should therefore work with any ldpk lens model without modification, including custom lens models
+
+
+
+
+
+Installation instructions:
+
+1) Obtain Lens Distortion Plugin Kit (ldpk) from 3DEqualizer.com:
+     http://www.3dequalizer.com/index.html?site=tech_docs&id=110216_01
+   Compile and install the library.
+
+Also install associated plugins to a separate directory (e.g. /usr/local/lensmodels)
+
+2) Edit the Makefile, setting the path to your ldpk header and library, and the location of the folder of installed lens models
+
+3) Compile and install lensDistortion_3de.so
+
+Nuke configuration:
+
+To make the plugin load you must ensure lensDistortion_3de.so is in NUKE_PATH, and also associate it with the Ops in one of two ways:
+
+* Set an init.py file to call nuke.load("lensDistortion_3de.so"). This will load the plugin when Nuke loads. All plugins will be available immediately
+* install a separate tcl file named the same as each lens model (see included example .tcl files) which loads the plugin on demand
+
+We recommend the former, since Nuke will automatically detect new lens distortion plugins on load without needing to create extra files.
+
+Depending on your workflow, you may need to add a menu entry for each lens distortion model you require by adding the following to menu.py:
+
+menubar = nuke.menu("Nodes")
+menubar.addCommand("Filter/tdeLensWarp","nuke.createNode('tde4_ldp_classic_3de_mixed')")
+
+Alternatively, you may prefer to create a gizmo which wraps the lens model Op preloaded with the correct lens distortion values as solved by 3DE, and make 
+that available in the Nuke menus. Nuke nodes which do not appear in menus can be created by using the 'x' shortcut, and typing the node name.
+
