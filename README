@@ -1,0 +1,20 @@
+
+########################################################################
+#
+# Copyright (c) 2011, Weta Digital Limited
+#
+# All rights reserved.
+#
+# see accompanying LICENSE file for more information
+#
+#######################################################################
+
+lensDistortion_3de is a thin wrapper around the 3DEqualizer Lens Distortion Plugin Kit (ldpk)
+It scans a given folder, set by LENSMODEL_PATH for .so files, and creates a Nuke Op for
+each, named the same as the .so. Thus, if there is a plugin called 'tde4_ldp_classic_3de_mixed'
+a node will be available in Nuke called 'tde4_ldp_classic_3de_mixed'
+
+lensDistortion_3de requires a commercial licence of Nuke to work.
+The ldpk is freely available, and does not require 3DEqualizer.
+
+
