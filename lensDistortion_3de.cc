@@ -200,6 +200,7 @@ class StaticInfo{
           }
         }        
       }
+      closedir(dir);
     }
    }
    };
