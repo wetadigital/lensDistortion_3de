@@ -196,10 +196,11 @@ class StaticInfo{
           if(names.size()>12)
           {
             std::cerr << "warning: maximum number of lens distortions plugins reached. Remove unwanted plugins from " << plg_path << " or recompile LensDistortion_3de" << std::endl;
-            return;
+            break;
           }
         }        
       }
+      closedir(dir);
     }
    }
    };
